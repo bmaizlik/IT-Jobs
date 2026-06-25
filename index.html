@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משרות IT בכירות – עדכון יומי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg2: #f7f7f5;
+    --bg3: #f0eeea;
+    --text: #1a1a18;
+    --text2: #5f5e5a;
+    --text3: #888780;
+    --border: rgba(0,0,0,0.12);
+    --border2: rgba(0,0,0,0.22);
+    --purple-bg: #EEEDFE;
+    --purple-text: #3C3489;
+    --purple-border: #AFA9EC;
+    --purple-mid: #7F77DD;
+    --teal-bg: #E1F5EE;
+    --teal-text: #085041;
+    --teal-border: #5DCAA5;
+    --teal-mid: #1D9E75;
+    --amber-bg: #FAEEDA;
+    --amber-text: #633806;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg2: #252523;
+      --bg3: #2c2c2a;
+      --text: #f0eeea;
+      --text2: #b4b2a9;
+      --text3: #888780;
+      --border: rgba(255,255,255,0.12);
+      --border2: rgba(255,255,255,0.22);
+      --purple-bg: #26215C;
+      --purple-text: #CECBF6;
+      --purple-border: #534AB7;
+      --teal-bg: #04342C;
+      --teal-text: #9FE1CB;
+      --teal-border: #0F6E56;
+      --amber-bg: #412402;
+      --amber-text: #FAC775;
+    }
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg3);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.75rem; gap: 1rem; }
+  .header-left h1 { font-size: 22px; font-weight: 600; color: var(--text); }
+  .header-left .subtitle { font-size: 13px; color: var(--text3); margin-top: 4px; }
+  .refresh-btn {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; padding: 8px 16px;
+    border-radius: var(--radius); border: 0.5px solid var(--border2);
+    background: var(--bg); color: var(--text); cursor: pointer;
+    font-family: inherit; transition: background 0.15s; white-space: nowrap;
+  }
+  .refresh-btn:hover { background: var(--bg2); }
+  .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .stat {
+    background: var(--bg); border-radius: var(--radius);
+    padding: 12px 14px; border: 0.5px solid var(--border);
+  }
+  .stat .s-label { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
+  .stat .s-val { font-size: 24px; font-weight: 500; color: var(--text); }
+  .stat .s-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 1.25rem; }
+  .search {
+    flex: 1; min-width: 200px; font-size: 13px; padding: 7px 12px;
+    border-radius: var(--radius); border: 0.5px solid var(--border2);
+    background: var(--bg); color: var(--text); font-family: inherit;
+  }
+  .search:focus { outline: none; border-color: var(--purple-mid); }
+  .filter-btn {
+    font-size: 13px; padding: 7px 14px; border-radius: var(--radius);
+    border: 0.5px solid var(--border); background: var(--bg);
+    color: var(--text); cursor: pointer; font-family: inherit;
+    transition: background 0.15s;
+  }
+  .filter-btn:hover { background: var(--bg2); }
+  .filter-btn.active { background: var(--purple-bg); border-color: var(--purple-border); color: var(--purple-text); }
+
+  .legend { display: flex; gap: 16px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .job-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .job-card {
+    background: var(--bg); border-radius: var(--radius-lg);
+    border: 0.5px solid var(--border);
+    border-right: 3px solid var(--purple-mid);
+    padding: 14px 16px; cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .job-card.t2 { border-right-color: var(--teal-mid); }
+  .job-card:hover { border-color: var(--border2); }
+  .job-card.t2:hover { border-right-color: var(--teal-mid); }
+
+  .jc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .jc-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+  .jc-company { font-size: 13px; color: var(--text2); }
+  .badges { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+
+  .badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+  .badge-t1 { background: var(--purple-bg); color: var(--purple-text); }
+  .badge-t2 { background: var(--teal-bg); color: var(--teal-text); }
+  .badge-new { background: var(--amber-bg); color: var(--amber-text); }
+
+  .jc-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .meta-chip { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text3); }
+  .meta-chip i { font-size: 13px; }
+
+  .jc-expand { display: none; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--border); }
+  .jc-expand.open { display: block; }
+  .jc-summary { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 12px; }
+  .jc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .act-btn {
+    font-size: 12px; padding: 6px 14px; border-radius: var(--radius);
+    border: 0.5px solid var(--border2); background: transparent;
+    color: var(--text); cursor: pointer; font-family: inherit;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+    transition: background 0.15s;
+  }
+  .act-btn:hover { background: var(--bg2); }
+  .act-btn.primary { background: var(--purple-bg); border-color: var(--purple-border); color: var(--purple-text); }
+
+  .state-box { text-align: center; padding: 3rem 1rem; color: var(--text2); font-size: 14px; }
+  .spinner {
+    display: inline-block; width: 22px; height: 22px;
+    border: 2px solid var(--border); border-top-color: var(--purple-mid);
+    border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .api-key-box {
+    background: var(--bg); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem;
+    display: none;
+  }
+  .api-key-box.visible { display: block; }
+  .api-key-box h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+  .api-key-box p { font-size: 13px; color: var(--text2); margin-bottom: 12px; line-height: 1.6; }
+  .api-row { display: flex; gap: 8px; }
+  .api-input {
+    flex: 1; font-size: 13px; padding: 7px 12px;
+    border-radius: var(--radius); border: 0.5px solid var(--border2);
+    background: var(--bg3); color: var(--text); font-family: 'Courier New', monospace;
+  }
+  .api-input:focus { outline: none; border-color: var(--purple-mid); }
+  .save-btn {
+    font-size: 13px; padding: 7px 16px; border-radius: var(--radius);
+    border: none; background: var(--purple-mid); color: #fff;
+    cursor: pointer; font-family: inherit; font-weight: 500;
+  }
+  .save-btn:hover { background: var(--purple-text); }
+
+  .footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 0.5px solid var(--border); font-size: 12px; color: var(--text3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 600px) {
+    .header { flex-direction: column; }
+    .jc-top { flex-direction: column; }
+    .badges { flex-direction: row; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>משרות IT בכירות</h1>
+      <p class="subtitle" id="date-label">טוען...</p>
+    </div>
+    <button class="refresh-btn" id="refresh-btn" onclick="loadJobs()">
+      <i class="ti ti-refresh" aria-hidden="true" style="font-size:15px;"></i>
+      רענן
+    </button>
+  </div>
+
+  <div class="api-key-box" id="api-box">
+    <h3>🔑 הגדרת API Key</h3>
+    <p>
+      כדי שהדשבורד יחפש משרות, הוא צריך Anthropic API Key.<br>
+      ניתן לקבל ב‑<a href="https://console.anthropic.com" target="_blank" style="color:var(--purple-text)">console.anthropic.com</a> (חינמי לשימוש בסיסי).<br>
+      המפתח נשמר רק בדפדפן שלך (localStorage) ולא עובר לשום שרת.
+    </p>
+    <div class="api-row">
+      <input class="api-input" type="password" id="api-input" placeholder="sk-ant-api03-..." />
+      <button class="save-btn" onclick="saveKey()">שמור והתחל</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="s-label">סה"כ משרות</div><div class="s-val" id="s-total">—</div></div>
+    <div class="stat"><div class="s-label">Tier 1</div><div class="s-val" id="s-t1">—</div><div class="s-sub">CIO / VP IT</div></div>
+    <div class="stat"><div class="s-label">Tier 2</div><div class="s-val" id="s-t2">—</div><div class="s-sub">Director IT</div></div>
+    <div class="stat"><div class="s-label">חדשות (48 שע')</div><div class="s-val" id="s-new">—</div></div>
+  </div>
+
+  <div class="controls">
+    <input class="search" type="text" id="search-input" placeholder="חיפוש לפי חברה, תפקיד, מיקום..." oninput="renderJobs()">
+    <button class="filter-btn active" onclick="setFilter('all',this)">הכל</button>
+    <button class="filter-btn" onclick="setFilter('t1',this)">Tier 1</button>
+    <button class="filter-btn" onclick="setFilter('t2',this)">Tier 2</button>
+    <button class="filter-btn" onclick="setFilter('new',this)">חדש</button>
+  </div>
+
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:var(--purple-mid);"></div>Tier 1 – CIO / VP IT / Head of IT</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--teal-mid);"></div>Tier 2 – Director IT</div>
+  </div>
+
+  <div id="job-list" class="job-list">
+    <div class="state-box">טוען...</div>
+  </div>
+
+  <div class="footer">
+    <span>Bmaizlik · IT Jobs Dashboard</span>
+    <span id="last-updated"></span>
+  </div>
+</div>
+
+<script>
+const TIER1_KEYS = ["CIO","chief information officer","VP IT","VP of IT","VP Information Technology","vice president IT","vice president information technology","director of IT","global IT director","head of IT","VP IT & security"];
+const TIER2_KEYS = ["director IT operations","director enterprise IT","IT infrastructure director","director workplace technology","director of corporate IT","director of information systems"];
+
+let allJobs = [];
+let currentFilter = 'all';
+
+function getTier(title) {
+  const t = (title||'').toLowerCase();
+  for (const k of TIER1_KEYS) if (t.includes(k.toLowerCase())) return 1;
+  for (const k of TIER2_KEYS) if (t.includes(k.toLowerCase())) return 2;
+  return 0;
+}
+
+function isRecent(dateStr) {
+  if (!dateStr) return false;
+  const s = (dateStr||'').toLowerCase();
+  if (s.includes('today') || s.includes('hour') || s.includes('1 day') || s.includes('היום')) return true;
+  try {
+    const d = new Date(dateStr);
+    const diff = (Date.now() - d.getTime()) / 3600000;
+    return diff <= 48;
+  } catch(e) { return false; }
+}
+
+function getKey() { return localStorage.getItem('anthropic_api_key') || ''; }
+
+function saveKey() {
+  const val = document.getElementById('api-input').value.trim();
+  if (!val.startsWith('sk-')) { alert('המפתח צריך להתחיל ב‑sk-'); return; }
+  localStorage.setItem('anthropic_api_key', val);
+  document.getElementById('api-box').classList.remove('visible');
+  loadJobs();
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderJobs();
+}
+
+function renderJobs() {
+  const q = (document.getElementById('search-input').value||'').toLowerCase();
+  const jobs = allJobs.filter(j => {
+    const match = !q || (j.title||'').toLowerCase().includes(q) || (j.company||'').toLowerCase().includes(q) || (j.location||'').toLowerCase().includes(q);
+    if (!match) return false;
+    if (currentFilter === 't1') return j.tier === 1;
+    if (currentFilter === 't2') return j.tier === 2;
+    if (currentFilter === 'new') return j.isNew;
+    return true;
+  });
+
+  document.getElementById('s-total').textContent = allJobs.length;
+  document.getElementById('s-t1').textContent = allJobs.filter(j=>j.tier===1).length;
+  document.getElementById('s-t2').textContent = allJobs.filter(j=>j.tier===2).length;
+  document.getElementById('s-new').textContent = allJobs.filter(j=>j.isNew).length;
+
+  const list = document.getElementById('job-list');
+  if (!jobs.length) { list.innerHTML = '<div class="state-box">לא נמצאו משרות מתאימות</div>'; return; }
+
+  list.innerHTML = jobs.map((j,i) => `
+    <div class="job-card t${j.tier}" onclick="toggleExpand(${i})" role="article">
+      <div class="jc-top">
+        <div>
+          <div class="jc-title">${escHtml(j.title||'')}</div>
+          <div class="jc-company">${escHtml(j.company||'')}</div>
+        </div>
+        <div class="badges">
+          <span class="badge badge-t${j.tier}">Tier ${j.tier}</span>
+          ${j.isNew ? '<span class="badge badge-new">חדש</span>' : ''}
+        </div>
+      </div>
+      <div class="jc-meta">
+        ${j.location ? `<span class="meta-chip"><i class="ti ti-map-pin" aria-hidden="true"></i>${escHtml(j.location)}</span>` : ''}
+        ${j.type ? `<span class="meta-chip"><i class="ti ti-briefcase" aria-hidden="true"></i>${escHtml(j.type)}</span>` : ''}
+        ${j.date ? `<span class="meta-chip"><i class="ti ti-calendar" aria-hidden="true"></i>${escHtml(j.date)}</span>` : ''}
+      </div>
+      <div class="jc-expand" id="exp-${i}">
+        <div class="jc-summary">${escHtml(j.summary||'')}</div>
+        <div class="jc-actions">
+          ${j.url ? `<a class="act-btn primary" href="${escHtml(j.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="ti ti-external-link" aria-hidden="true"></i>פתח משרה</a>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleExpand(i) {
+  document.getElementById('exp-'+i).classList.toggle('open');
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function loadJobs() {
+  const apiKey = getKey();
+  if (!apiKey) {
+    document.getElementById('api-box').classList.add('visible');
+    document.getElementById('job-list').innerHTML = '<div class="state-box">הכנס API Key כדי להתחיל</div>';
+    return;
+  }
+
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  document.getElementById('job-list').innerHTML = '<div class="state-box"><div class="spinner"></div><br>מחפש משרות עדכניות...</div>';
+  allJobs = [];
+
+  const today = new Date();
+  document.getElementById('date-label').textContent = 'עדכון: ' + today.toLocaleDateString('he-IL', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
+  const prompt = `Search the web for senior IT leadership job postings published in the last 7 days.
+
+Search for jobs with these titles:
+Tier 1: CIO, "VP IT", "VP Information Technology", "Director of IT", "Global IT Director", "Head of IT", "VP IT & Security", "Chief Information Officer"
+Tier 2: "Director IT Operations", "Director Enterprise IT", "IT Infrastructure Director", "Director Workplace Technology", "Director of Corporate IT", "Director of Information Systems"
+
+Search on LinkedIn Jobs, Indeed, Glassdoor, Greenhouse, Lever, and company career pages globally.
+
+Return ONLY a valid JSON array (no markdown fences, no explanation, no preamble). Up to 20 jobs. Each object must have:
+{
+  "title": "exact job title",
+  "company": "company name",
+  "location": "city, country",
+  "type": "Remote / Hybrid / On-site",
+  "date": "YYYY-MM-DD",
+  "url": "direct link to the job posting",
+  "summary": "2-3 sentences about the role, company, and key requirements"
+}
+
+Today is ${today.toISOString().split('T')[0]}. Prioritize jobs posted in the last 48 hours. Real jobs only.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 2000,
+        messages: [{ role: "user", content: prompt }],
+        tools: [{ type: "web_search_20250305", name: "web_search" }]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({}));
+      if (res.status === 401) throw new Error('API Key לא תקין. לחץ על הגדרות כדי לעדכן.');
+      throw new Error(err.error?.message || `שגיאה ${res.status}`);
+    }
+
+    const data = await res.json();
+    const text = data.content.map(b => b.type === 'text' ? b.text : '').join('');
+    const start = text.indexOf('[');
+    const end = text.lastIndexOf(']');
+    if (start === -1) throw new Error('לא התקבלו תוצאות מהחיפוש');
+
+    const parsed = JSON.parse(text.slice(start, end+1));
+    allJobs = parsed
+      .map(j => ({ ...j, tier: getTier(j.title), isNew: isRecent(j.date) }))
+      .filter(j => j.tier > 0)
+      .sort((a,b) => a.tier - b.tier || (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
+
+    document.getElementById('last-updated').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL');
+
+    if (!allJobs.length) {
+      document.getElementById('job-list').innerHTML = '<div class="state-box">לא נמצאו משרות רלוונטיות כרגע. נסה שוב מאוחר יותר.</div>';
+    } else {
+      renderJobs();
+    }
+  } catch(e) {
+    document.getElementById('job-list').innerHTML = `
+      <div class="state-box">
+        <div style="margin-bottom:8px;">⚠️ ${e.message}</div>
+        <button class="act-btn" onclick="loadJobs()">נסה שוב</button>
+        <button class="act-btn" onclick="resetKey()" style="margin-right:8px;">עדכן API Key</button>
+      </div>`;
+  }
+  btn.disabled = false;
+}
+
+function resetKey() {
+  localStorage.removeItem('anthropic_api_key');
+  document.getElementById('api-box').classList.add('visible');
+  document.getElementById('api-input').value = '';
+}
+
+loadJobs();
+</script>
+</body>
+</html>
