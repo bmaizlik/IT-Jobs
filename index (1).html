@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משרות IT בכירות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fff;--bg2:#f7f7f5;--bg3:#f0eeea;--text:#1a1a18;--text2:#5f5e5a;--text3:#888780;--border:rgba(0,0,0,.12);--border2:rgba(0,0,0,.22);--pm:#7F77DD;--pb:#EEEDFE;--pt:#3C3489;--pbo:#AFA9EC;--tm:#1D9E75;--tb:#E1F5EE;--tt:#085041;--ab:#FAEEDA;--at:#633806;--r:8px;--rl:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1c1a;--bg2:#252523;--bg3:#2c2c2a;--text:#f0eeea;--text2:#b4b2a9;--text3:#888780;--border:rgba(255,255,255,.12);--border2:rgba(255,255,255,.22);--pb:#26215C;--pt:#CECBF6;--pbo:#534AB7;--tb:#04342C;--tt:#9FE1CB;--ab:#412402;--at:#FAC775}}
+body{font-family:'Inter',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
+.page{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;gap:1rem}
+h1{font-size:22px;font-weight:600}
+.sub{font-size:13px;color:var(--text3);margin-top:4px}
+.rbtn{display:flex;align-items:center;gap:6px;font-size:13px;padding:8px 16px;border-radius:var(--r);border:.5px solid var(--border2);background:var(--bg);color:var(--text);cursor:pointer;font-family:inherit;white-space:nowrap}
+.rbtn:hover{background:var(--bg2)}
+.rbtn:disabled{opacity:.5;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.5rem}
+.stat{background:var(--bg);border-radius:var(--r);padding:12px 14px;border:.5px solid var(--border)}
+.sl{font-size:12px;color:var(--text2);margin-bottom:4px}
+.sv{font-size:24px;font-weight:500}
+.ss{font-size:11px;color:var(--text3);margin-top:2px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
+.search{flex:1;min-width:200px;font-size:13px;padding:7px 12px;border-radius:var(--r);border:.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit}
+.search:focus{outline:none;border-color:var(--pm)}
+.fb{font-size:13px;padding:7px 14px;border-radius:var(--r);border:.5px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-family:inherit}
+.fb:hover{background:var(--bg2)}
+.fb.active{background:var(--pb);border-color:var(--pbo);color:var(--pt)}
+.legend{display:flex;gap:16px;margin-bottom:1rem;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.jlist{display:flex;flex-direction:column;gap:10px}
+.jcard{background:var(--bg);border-radius:var(--rl);border:.5px solid var(--border);border-right:3px solid var(--pm);padding:14px 16px;cursor:pointer}
+.jcard.t2{border-right-color:var(--tm)}
+.jcard:hover{border-color:var(--border2)}
+.jtop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.jt{font-size:15px;font-weight:500;margin-bottom:3px}
+.jc{font-size:13px;color:var(--text2)}
+.bgs{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.bt1{background:var(--pb);color:var(--pt)}
+.bt2{background:var(--tb);color:var(--tt)}
+.bnew{background:var(--ab);color:var(--at)}
+.jmeta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.mc{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text3)}
+.mc i{font-size:13px}
+.jexp{display:none;margin-top:10px;padding-top:10px;border-top:.5px solid var(--border)}
+.jexp.open{display:block}
+.jsum{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px}
+.jacts{display:flex;gap:8px;flex-wrap:wrap}
+.abtn{font-size:12px;padding:6px 14px;border-radius:var(--r);border:.5px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.abtn:hover{background:var(--bg2)}
+.abtn.pri{background:var(--pb);border-color:var(--pbo);color:var(--pt)}
+.sbox{text-align:center;padding:3rem 1rem;color:var(--text2);font-size:14px}
+.spin{display:inline-block;width:22px;height:22px;border:2px solid var(--border);border-top-color:var(--pm);border-radius:50%;animation:sp .8s linear infinite;margin-bottom:10px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.apibox{background:var(--bg);border:.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1.5rem;display:none}
+.apibox.vis{display:block}
+.apibox h3{font-size:15px;font-weight:500;margin-bottom:8px}
+.apibox p{font-size:13px;color:var(--text2);margin-bottom:8px;line-height:1.7}
+.apibox ol{font-size:13px;color:var(--text2);margin:0 0 14px 0;padding-right:18px;line-height:2.2}
+.apirow{display:flex;gap:8px}
+.apiin{flex:1;font-size:13px;padding:7px 12px;border-radius:var(--r);border:.5px solid var(--border2);background:var(--bg3);color:var(--text);font-family:'Courier New',monospace}
+.apiin:focus{outline:none;border-color:var(--pm)}
+.savebtn{font-size:13px;padding:7px 16px;border-radius:var(--r);border:none;background:var(--pm);color:#fff;cursor:pointer;font-family:inherit;font-weight:500;white-space:nowrap}
+.savebtn:hover{opacity:.9}
+.footer{margin-top:2.5rem;padding-top:1.25rem;border-top:.5px solid var(--border);font-size:12px;color:var(--text3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:600px){.header{flex-direction:column}.jtop{flex-direction:column}.bgs{flex-direction:row}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div>
+      <h1>משרות IT בכירות</h1>
+      <p class="sub" id="dlabel">טוען...</p>
+    </div>
+    <button class="rbtn" id="rbtn" onclick="loadJobs()">
+      <i class="ti ti-refresh" aria-hidden="true" style="font-size:15px"></i>רענן
+    </button>
+  </div>
+
+  <div class="apibox" id="apibox">
+    <h3>🔑 הגדרת Google Gemini API Key — חינמי לגמרי</h3>
+    <p>הדשבורד משתמש ב-Google Gemini שהוא חינמי ללא כרטיס אשראי.</p>
+    <ol>
+      <li>כנס ל‑<a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--pt)">aistudio.google.com/apikey</a></li>
+      <li>התחבר עם חשבון Google</li>
+      <li>לחץ <strong>Create API Key</strong></li>
+      <li>העתק והדבק כאן:</li>
+    </ol>
+    <div class="apirow">
+      <input class="apiin" type="password" id="apiin" placeholder="AIzaSy..."/>
+      <button class="savebtn" onclick="saveKey()">שמור והתחל</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="sl">סה"כ משרות</div><div class="sv" id="st">—</div></div>
+    <div class="stat"><div class="sl">Tier 1</div><div class="sv" id="s1">—</div><div class="ss">CIO / VP IT</div></div>
+    <div class="stat"><div class="sl">Tier 2</div><div class="sv" id="s2">—</div><div class="ss">Director IT</div></div>
+    <div class="stat"><div class="sl">חדשות (48 שע')</div><div class="sv" id="sn">—</div></div>
+  </div>
+
+  <div class="controls">
+    <input class="search" type="text" id="srch" placeholder="חיפוש לפי חברה, תפקיד, מיקום..." oninput="render()">
+    <button class="fb active" onclick="setF('all',this)">הכל</button>
+    <button class="fb" onclick="setF('t1',this)">Tier 1</button>
+    <button class="fb" onclick="setF('t2',this)">Tier 2</button>
+    <button class="fb" onclick="setF('new',this)">חדש</button>
+  </div>
+
+  <div class="legend">
+    <div class="leg"><div class="ld" style="background:var(--pm)"></div>Tier 1 – CIO / VP IT / Head of IT</div>
+    <div class="leg"><div class="ld" style="background:var(--tm)"></div>Tier 2 – Director IT</div>
+  </div>
+
+  <div id="jlist" class="jlist"><div class="sbox">טוען...</div></div>
+
+  <div class="footer">
+    <span>Bmaizlik · IT Jobs Dashboard</span>
+    <span id="lupd"></span>
+  </div>
+</div>
+<script>
+const T1=["cio","chief information officer","vp it","vp of it","vp information technology","vice president it","vice president information technology","director of it","global it director","head of it","vp it & security","vp it and security"];
+const T2=["director it operations","director enterprise it","it infrastructure director","director workplace technology","director of corporate it","director of information systems"];
+let jobs=[],flt='all';
+
+function tier(t){
+  const s=(t||'').toLowerCase();
+  for(const k of T1)if(s.includes(k))return 1;
+  for(const k of T2)if(s.includes(k))return 2;
+  return 0;
+}
+function recent(d){
+  if(!d)return false;
+  const s=(d||'').toLowerCase();
+  if(s.includes('today')||s.includes('hour')||s.includes('1 day')||s.includes('היום'))return true;
+  try{return(Date.now()-new Date(d).getTime())/3600000<=48}catch(e){return false}
+}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function getKey(){return localStorage.getItem('gemini_key')||''}
+function saveKey(){
+  const v=document.getElementById('apiin').value.trim();
+  if(!v.startsWith('AIza')){alert('המפתח צריך להתחיל ב‑AIza');return}
+  localStorage.setItem('gemini_key',v);
+  document.getElementById('apibox').classList.remove('vis');
+  loadJobs();
+}
+function resetKey(){
+  localStorage.removeItem('gemini_key');
+  document.getElementById('apibox').classList.add('vis');
+  document.getElementById('apiin').value='';
+}
+function setF(f,btn){
+  flt=f;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function render(){
+  const q=(document.getElementById('srch').value||'').toLowerCase();
+  const list=jobs.filter(j=>{
+    const m=!q||(j.title||'').toLowerCase().includes(q)||(j.company||'').toLowerCase().includes(q)||(j.location||'').toLowerCase().includes(q);
+    if(!m)return false;
+    if(flt==='t1')return j.tier===1;
+    if(flt==='t2')return j.tier===2;
+    if(flt==='new')return j.isNew;
+    return true;
+  });
+  document.getElementById('st').textContent=jobs.length;
+  document.getElementById('s1').textContent=jobs.filter(j=>j.tier===1).length;
+  document.getElementById('s2').textContent=jobs.filter(j=>j.tier===2).length;
+  document.getElementById('sn').textContent=jobs.filter(j=>j.isNew).length;
+  const el=document.getElementById('jlist');
+  if(!list.length){el.innerHTML='<div class="sbox">לא נמצאו משרות מתאימות</div>';return}
+  el.innerHTML=list.map((j,i)=>`
+    <div class="jcard t${j.tier}" onclick="tog(${i})">
+      <div class="jtop">
+        <div><div class="jt">${esc(j.title)}</div><div class="jc">${esc(j.company)}</div></div>
+        <div class="bgs">
+          <span class="badge bt${j.tier}">Tier ${j.tier}</span>
+          ${j.isNew?'<span class="badge bnew">חדש</span>':''}
+        </div>
+      </div>
+      <div class="jmeta">
+        ${j.location?`<span class="mc"><i class="ti ti-map-pin" aria-hidden="true"></i>${esc(j.location)}</span>`:''}
+        ${j.type?`<span class="mc"><i class="ti ti-briefcase" aria-hidden="true"></i>${esc(j.type)}</span>`:''}
+        ${j.date?`<span class="mc"><i class="ti ti-calendar" aria-hidden="true"></i>${esc(j.date)}</span>`:''}
+      </div>
+      <div class="jexp" id="e${i}">
+        <div class="jsum">${esc(j.summary||'')}</div>
+        <div class="jacts">
+          ${j.url?`<a class="abtn pri" href="${esc(j.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="ti ti-external-link" aria-hidden="true"></i>פתח משרה</a>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+function tog(i){document.getElementById('e'+i).classList.toggle('open')}
+
+async function loadJobs(){
+  const key=getKey();
+  if(!key){
+    document.getElementById('apibox').classList.add('vis');
+    document.getElementById('jlist').innerHTML='<div class="sbox">הכנס API Key כדי להתחיל</div>';
+    return;
+  }
+  const btn=document.getElementById('rbtn');
+  btn.disabled=true;
+  document.getElementById('jlist').innerHTML='<div class="sbox"><div class="spin"></div><br>מחפש משרות עדכניות...</div>';
+  jobs=[];
+  const today=new Date();
+  document.getElementById('dlabel').textContent='עדכון: '+today.toLocaleDateString('he-IL',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  const prompt=`Search the web for senior IT leadership job postings published in the last 7 days.
+Titles to search:
+Tier 1: CIO, "VP IT", "VP Information Technology", "Director of IT", "Global IT Director", "Head of IT", "VP IT & Security", "Chief Information Officer"
+Tier 2: "Director IT Operations", "Director Enterprise IT", "IT Infrastructure Director", "Director Workplace Technology", "Director of Corporate IT", "Director of Information Systems"
+Search LinkedIn Jobs, Indeed, Glassdoor, and company career pages globally.
+Return ONLY a valid JSON array (no markdown, no explanation). Up to 20 real jobs. Each:
+{"title":"","company":"","location":"city, country","type":"Remote/Hybrid/On-site","date":"YYYY-MM-DD","url":"","summary":"2-3 sentences"}
+Today: ${today.toISOString().split('T')[0]}. Real jobs only.`;
+
+  try{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{parts:[{text:prompt}]}],
+        tools:[{google_search:{}}]
+      })
+    });
+    if(!res.ok){
+      const err=await res.json().catch(()=>({}));
+      if(res.status===400||res.status===403)throw new Error('API Key לא תקין — לחץ "עדכן מפתח"');
+      throw new Error(err.error?.message||`שגיאה ${res.status}`);
+    }
+    const data=await res.json();
+    const text=(data.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('');
+    const s=text.indexOf('['),e=text.lastIndexOf(']');
+    if(s===-1)throw new Error('לא התקבלו תוצאות. נסה שוב.');
+    const parsed=JSON.parse(text.slice(s,e+1));
+    jobs=parsed.map(j=>({...j,tier:tier(j.title),isNew:recent(j.date)})).filter(j=>j.tier>0).sort((a,b)=>a.tier-b.tier||(b.isNew?1:0)-(a.isNew?1:0));
+    document.getElementById('lupd').textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
+    if(!jobs.length){document.getElementById('jlist').innerHTML='<div class="sbox">לא נמצאו משרות. נסה שוב מאוחר יותר.</div>'}
+    else render();
+  }catch(e){
+    document.getElementById('jlist').innerHTML=`<div class="sbox"><div style="margin-bottom:12px">⚠️ ${esc(e.message)}</div><button class="abtn" onclick="loadJobs()" style="margin-left:8px">נסה שוב</button><button class="abtn" onclick="resetKey()">עדכן מפתח</button></div>`;
+  }
+  btn.disabled=false;
+}
+loadJobs();
+</script>
+</body>
+</html>
